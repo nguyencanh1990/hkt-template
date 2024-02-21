@@ -6,12 +6,16 @@ use App\Macros\StrMixins;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\BaseRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
+use App\Repositories\TaskRepositoryInterface;
 use App\Repositories\Impl\BaseRepository;
 use App\Repositories\Impl\UserRepository;
+use App\Repositories\Impl\TaskRepository;
 use App\Services\UserService;
+use App\Services\TaskService; 
 use App\Services\BaseService;
 use App\Services\Impl\BaseServiceImpl;
 use App\Services\Impl\UserServiceImpl;
+use App\Services\Impl\TaskServiceImpl;
 use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
@@ -47,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         return [
             BaseService::class => BaseServiceImpl::class,
             UserService::class => UserServiceImpl::class,
+            TaskService::class => TaskServiceImpl::class
         ];
     }
 
@@ -60,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
         return [
             BaseRepositoryInterface::class => BaseRepository::class,
             UserRepositoryInterface::class => UserRepository::class,
+            TaskRepositoryInterface::class => TaskRepository::class,
         ];
     }
 

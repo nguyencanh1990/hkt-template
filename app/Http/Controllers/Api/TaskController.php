@@ -7,7 +7,7 @@ use App\Http\Requests\TaskRequest;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 
-class UserController extends BaseController
+class TaskController extends BaseController
 {
     /**
      * UserController constructor.
