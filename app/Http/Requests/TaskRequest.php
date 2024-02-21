@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class UserRequest extends BaseRequest
+class TaskRequest extends BaseRequest
 {
     /**
      * Define rules for store function

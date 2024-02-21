@@ -15,7 +15,7 @@ use Illuminate\Support\Enumerable;
 use Illuminate\Support\Str;
 use Throwable;
 
-class BaseRepository implements BaseRepositoryInterface
+abstract class BaseRepository implements BaseRepositoryInterface
 {
     /** @var Model|BaseModel $model */
     public Model $model;

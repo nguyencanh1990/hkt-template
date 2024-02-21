@@ -4,20 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Parameters\Criteria;
-use App\Services\Impl\BaseServiceImpl;
+use App\Services\BaseService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Str;
 
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
+    /** @var BaseService $service */
+    protected BaseService $service;
 
+    /** @var Request $request */
     protected Request $request;
-    protected BaseServiceImpl $service;
 
     /**
      * BaseController constructor.
@@ -25,12 +26,18 @@ class BaseController extends Controller
      * @param  BaseService  $service
      * @param  Request  $request
      */
-    public function __construct(Request $request)
+    public function __construct(BaseService $service, Request $request)
     {
+        $this->service = $service;
         $this->request = $request;
-        $model = Str::studly(Str::singular($this->request->model));
-        $this->service = new BaseServiceImpl($model);
     }
+
+    /**
+     * Get FormRequest validation (BaseRequest::class)
+     *
+     * @return string
+     */
+    abstract public function getRules(): string;
 
     /**
      * Get list model items
@@ -69,7 +76,7 @@ class BaseController extends Controller
     {
         return $this->success(
             $this->service->create(
-                $this->request->all()
+                $this->validated()
             ),
             Response::HTTP_OK
         );
@@ -91,7 +98,7 @@ class BaseController extends Controller
         return $this->success(
             $this->service->update(
                 $id,
-                $this->request->all()
+                $this->validated()
             ),
             Response::HTTP_OK
         );
@@ -112,5 +119,15 @@ class BaseController extends Controller
         $this->service->delete($id);
 
         return $this->success(null, Response::HTTP_OK);
+    }
+
+    /**
+     * Get validated data
+     *
+     * @return array
+     */
+    public function validated(): array
+    {
+        return app($this->getRules())->validationData();
     }
 }

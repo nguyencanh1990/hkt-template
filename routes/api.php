@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +18,5 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::prefix('{model}')->group(function() {
-  Route::get('/', [BaseController::class, 'index'])->name('item.list');
-  Route::post('/', [BaseController::class, 'store'])->name('item.store');
-  Route::get('/{id}', [BaseController::class, 'show'])->name('item.show');
-  Route::post('/{id}', [BaseController::class, 'update'])->name('item.update');
-  Route::delete('/{id}', [BaseController::class, 'delete'])->name('item.delete');
-});
+Route::apiResource('users', UserController::class);
+Route::apiResource('tasks', UserController::class);

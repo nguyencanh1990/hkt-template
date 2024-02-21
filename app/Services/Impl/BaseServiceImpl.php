@@ -4,7 +4,6 @@ namespace App\Services\Impl;
 
 use App\Http\Parameters\Criteria;
 use App\Repositories\BaseRepositoryInterface;
-use App\Repositories\Impl\BaseRepository;
 use App\Services\BaseService;
 use Exception;
 use App\Helpers\LogHelperService;
@@ -21,19 +20,19 @@ use Illuminate\Support\Enumerable;
  *
  * @property Model|Builder $model
  */
-class BaseServiceImpl implements BaseService
+abstract class BaseServiceImpl implements BaseService
 {
-    public BaseRepository $repository;
+    /** @var BaseRepositoryInterface $repository */
+    public BaseRepositoryInterface $repository;
 
     /**
      * @var LogHelperService
      */
     protected LogHelperService $logger;
 
-    public function __construct($modelName)
+    public function __construct(BaseRepositoryInterface $repository)
     {
-        $modelClass = 'App\\Models\\'.$modelName;
-        $this->repository = new BaseRepository(new $modelClass);
+        $this->repository = $repository;
         $this->logger = app(LogHelperService::class);
     }
 
