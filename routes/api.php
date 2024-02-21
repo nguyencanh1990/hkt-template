@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('{model}')->group(function() {
   Route::get('/', [BaseController::class, 'index'])->name('item.list');
-  // Route::post('/', 'Api\BaseController@store')->name('item.store');
-  // Route::get('/{id}', 'Api\BaseController@show')->name('item.show');
-  // Route::post('/{id}', 'Api\BaseController@update')->name('item.update');
-  // Route::delete('/{id}', 'Api\BaseController@delete')->name('item.delete');
+  Route::post('/', [BaseController::class, 'store'])->name('item.store');
+  Route::get('/{id}', [BaseController::class, 'show'])->name('item.show');
+  Route::post('/{id}', [BaseController::class, 'update'])->name('item.update');
+  Route::delete('/{id}', [BaseController::class, 'delete'])->name('item.delete');
 });
