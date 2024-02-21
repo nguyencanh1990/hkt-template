@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,4 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::apiResource('users', UserController::class);
-Route::apiResource('tasks', UserController::class);
+Route::apiResource('tasks', TaskController::class);
