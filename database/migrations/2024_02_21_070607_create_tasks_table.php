@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('owner_id');
+            $table->integer('assignee_id');
             $table->string('title');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('description');
+            $table->boolean('status')->unsigned()->nullable();
             $table->timestamps();
         });
     }
