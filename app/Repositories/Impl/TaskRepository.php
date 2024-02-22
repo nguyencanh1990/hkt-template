@@ -96,12 +96,12 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
             ->where('start_date', '=', $date)
             ->where('assignee_id', $userId)
             ->where('status', Task::INCOMPLETE_STATUS)
-            ->get();
+            ->get()->toArray();
         $overtimeTasks = $this->newQuery()
             ->where('end_date', '<=', date("Y-m-d H:i:00"))
             ->where('assignee_id', $userId)
             ->where('status', Task::INCOMPLETE_STATUS)
-            ->get();
+            ->get()->toArray();
         return array_merge($incomingTasks, $overtimeTasks);
     }
 
