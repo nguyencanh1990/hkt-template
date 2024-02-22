@@ -91,12 +91,12 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     public function notices($userId)
     {
         $date = date("Y-m-d H:i:00", strtotime('+ 10 minute'));
-        $incomingTasks = $this->newQuery()
+        $incomingTasks = $this->model
             ->where('start_date', '=', $date)
             ->where('assignee_id', $userId)
             ->where('status', Task::INCOMPLETE_STATUS)
             ->get()->toArray();
-        $overtimeTasks = $this->newQuery()
+        $overtimeTasks = $this->model
             ->where('end_date', '<=', date("Y-m-d H:i:00"))
             ->where('assignee_id', $userId)
             ->where('status', Task::INCOMPLETE_STATUS)

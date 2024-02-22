@@ -28,7 +28,11 @@ class TaskServiceImpl extends BaseServiceImpl implements TaskService
         $notices = $this->repository->notices($userId);
         $results = [];
         foreach ($notices as $notice) {
-            $remainTime = (strtotime($notice['start_date']) - strtotime(date('Y-m-d H:i:00'))) / 60;
+            if (strtotime($notice['end_date']) < strtotime(date('Y-m-d H:i:00'))) {
+                $remainTime = (strtotime($notice['end_date']) - strtotime(date('Y-m-d H:i:00'))) / 60;    
+            } else {
+                $remainTime = (strtotime($notice['start_date']) - strtotime(date('Y-m-d H:i:00'))) / 60;
+            }
             if ($remainTime % 10 == 0) {
                 $notice['remain_time'] = $remainTime;
                 $results[] = $notice;
