@@ -81,9 +81,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
      *
      * @param  Criteria  $criteria
      *
-     * @return LengthAwarePaginator
      */
-    public function list(Criteria $criteria): LengthAwarePaginator
+    public function list(Criteria $criteria)
     {
         $query = $this->newQuery()->scopes($this->loadScopes($criteria->getFilters()));
         if (!empty($criteria->getSelect())) {
