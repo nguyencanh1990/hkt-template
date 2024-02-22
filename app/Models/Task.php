@@ -70,6 +70,6 @@ class Task extends Model
 
     public function scopeAssigned(Builder $query, $userId): Builder
     {
-        return $query->where('start_date', '>=', date("Y-m-d H:i:00"))->where('assignee_id', $userId);
+        return $query->where('assignee_id', $userId);
     }
 }
