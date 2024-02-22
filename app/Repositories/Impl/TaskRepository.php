@@ -107,4 +107,12 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
             ->where('status', Task::INCOMPLETE_STATUS)
             ->get();
     }
+
+    public function done($taskId)
+    {
+        $task = $this->newQuery()->where('id', $taskId)->find();
+        $task->status = Task::COMPLETE_STATUS;
+        $task->save();
+        return $task;
+    }
 }

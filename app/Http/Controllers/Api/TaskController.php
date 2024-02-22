@@ -47,4 +47,12 @@ class TaskController extends BaseController
             Response::HTTP_OK
         );
     }
+
+    public function done($taskId)
+    {
+        return $this->success(
+            $this->service->done($taskId),
+            Response::HTTP_OK
+        );
+    }
 }
