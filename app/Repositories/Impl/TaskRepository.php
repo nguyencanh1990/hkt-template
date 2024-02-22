@@ -22,4 +22,23 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     {
         parent::__construct($model);
     }
+
+    public function notices($userId)
+    {
+        $date = date("Y-m-d H:i:00", strtotime('+ 10 minute'));
+        return $this->newQuery()
+            ->where('start_date', '<=', $date)
+            ->where('assignee_id', $userId)
+            ->where('status', Task::INCOMPLETE_STATUS)
+            ->get();
+    }
+
+    public function overtime($userId)
+    {
+        return $this->newQuery()
+            ->where('start_date', '<=', date("Y-m-d H:i:00"))
+            ->where('assignee_id', $userId)
+            ->where('status', Task::INCOMPLETE_STATUS)
+            ->get();
+    }
 }

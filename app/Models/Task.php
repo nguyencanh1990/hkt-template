@@ -10,6 +10,9 @@ class Task extends Model
 {
     use HasFactory;
 
+    const COMPLETE_STATUS = 1;
+    const INCOMPLETE_STATUS = 0;
+
     protected $fillable = [
         'user_id',
         'description',
