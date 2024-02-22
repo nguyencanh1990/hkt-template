@@ -119,11 +119,11 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
             ->get();
         $results = [];
         foreach ($tasks as $task) {
-            $startDate = date('Y-m-d', strtotime($task->start_date));
-            if (!empty($results[$startDate])) {
-                $results[$startDate][] = $task;
+            $endDate = date('Y-m-d', strtotime($task->end_date));
+            if (!empty($results[$endDate])) {
+                $results[$endDate][] = $task;
             } else {
-                $results[$startDate] = [$task];
+                $results[$endDate] = [$task];
             }
         }
         return collect($results);
