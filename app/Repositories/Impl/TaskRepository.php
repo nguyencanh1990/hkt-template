@@ -92,11 +92,17 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     public function notices($userId)
     {
         $date = date("Y-m-d H:i:00", strtotime('+ 10 minute'));
-        return $this->newQuery()
-            ->where('start_date', '<=', $date)
+        $incomingTasks = $this->newQuery()
+            ->where('start_date', '=', $date)
             ->where('assignee_id', $userId)
             ->where('status', Task::INCOMPLETE_STATUS)
             ->get();
+        $overtimeTasks = $this->newQuery()
+            ->where('end_date', '<=', date("Y-m-d H:i:00"))
+            ->where('assignee_id', $userId)
+            ->where('status', Task::INCOMPLETE_STATUS)
+            ->get();
+        return array_merge($incomingTasks, $overtimeTasks);
     }
 
     public function overtime($userId)
