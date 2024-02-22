@@ -23,3 +23,4 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('tasks', TaskController::class);
 
 Route::get('tasks/{userId}/notices', [TaskController::class, 'notices']);
+Route::get('tasks/{userId}/overtime', [TaskController::class, 'overtime']);
