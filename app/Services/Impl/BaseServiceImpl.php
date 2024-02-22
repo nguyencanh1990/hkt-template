@@ -65,9 +65,8 @@ abstract class BaseServiceImpl implements BaseService
      *
      * @param  Criteria  $criteria
      *
-     * @return LengthAwarePaginator
      */
-    public function list(Criteria $criteria): LengthAwarePaginator
+    public function list(Criteria $criteria)
     {
         return $this->repository->list($criteria);
     }

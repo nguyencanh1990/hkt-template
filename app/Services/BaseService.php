@@ -42,9 +42,8 @@ interface BaseService
      *
      * @param  Criteria  $criteria
      *
-     * @return LengthAwarePaginator
      */
-    public function list(Criteria $criteria): LengthAwarePaginator;
+    public function list(Criteria $criteria);
 
     /**
      * Get lazy collection model items
