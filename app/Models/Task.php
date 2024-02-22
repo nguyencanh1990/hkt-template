@@ -62,4 +62,9 @@ class Task extends Model
     {
         return $query->where('end_date', '<=', $endDate);
     }
+
+    public function scopeIncompleteStatusEndDateto(Builder $query, $endDate): Builder
+    {
+        return $query->where('end_date', '<', $endDate)->where('status', self::INCOMPLETE_STATUS);
+    }
 }
