@@ -37,9 +37,9 @@ class TaskServiceImpl extends BaseServiceImpl implements TaskService
         return $results;
     }
 
-    public function overtime($userId)
+    public function overtime($criteria)
     {
-        return $this->repository->overtime($userId);
+        return $this->repository->overtime($criteria);;
     }
 
     public function done($taskId)

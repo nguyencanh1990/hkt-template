@@ -7,6 +7,7 @@ use App\Http\Requests\TaskRequest;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Parameters\Criteria;
 
 class TaskController extends BaseController
 {
@@ -40,10 +41,10 @@ class TaskController extends BaseController
         );
     }
 
-    public function overtime($userId)
+    public function overtime()
     {
         return $this->success(
-            $this->service->overtime($userId),
+            $this->service->list(Criteria::createFromRequest($this->request)),
             Response::HTTP_OK
         );
     }

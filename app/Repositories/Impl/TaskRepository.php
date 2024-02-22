@@ -105,13 +105,28 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
         return array_merge($incomingTasks, $overtimeTasks);
     }
 
-    public function overtime($userId)
+    public function overtime(Criteria $criteria)
     {
-        return $this->newQuery()
-            ->where('start_date', '<=', date("Y-m-d H:i:00"))
-            ->where('assignee_id', $userId)
-            ->where('status', Task::INCOMPLETE_STATUS)
+        $query = $this->newQuery()->scopes($this->loadScopes($criteria->getFilters()));
+
+        if (!empty($criteria->getSelect())) {
+            $query->select($criteria->getSelect());
+        }
+
+        $tasks = $this->applyOrderBy($query, $criteria->getSorts())
+            ->with($this->getRelations($criteria))
+            ->withCount($this->getCountRelations($criteria))
             ->get();
+        $results = [];
+        foreach ($tasks as $task) {
+            $startDate = date('Y-m-d', strtotime($task->start_date));
+            if (!empty($results[$startDate])) {
+                $results[$startDate][] = $task;
+            } else {
+                $results[$startDate] = [$task];
+            }
+        }
+        return collect($results);
     }
 
     public function done($taskId)
