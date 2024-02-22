@@ -83,8 +83,7 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
         }
         Task::insert($results);
 
-        $instance = Task::where('assignee_id', $data['owner_id'])->where('start_date', $data['start_date'])->first();
-        $instance->load(static::$relations);
+        $instance = Task::where('assignee_id', $data['owner_id'])->first();
         
         return $instance;
     }
