@@ -44,7 +44,7 @@ class TaskController extends BaseController
     public function overtime()
     {
         return $this->success(
-            $this->service->list(Criteria::createFromRequest($this->request)),
+            $this->service->overtime(Criteria::createFromRequest($this->request)),
             Response::HTTP_OK
         );
     }

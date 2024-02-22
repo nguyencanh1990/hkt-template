@@ -19,10 +19,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+Route::get('tasks/overtime', [TaskController::class, 'overtime']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('tasks', TaskController::class);
 
 Route::get('tasks/{userId}/notices', [TaskController::class, 'notices']);
-Route::get('tasks/{userId}/overtime', [TaskController::class, 'overtime']);
 Route::post('tasks/{taskId}/done', [TaskController::class, 'done']);
-Route::get('tasks/overtime', [TaskController::class, 'overtime']);
