@@ -67,4 +67,9 @@ class Task extends Model
     {
         return $query->where('end_date', '<', $endDate)->where('status', self::INCOMPLETE_STATUS);
     }
+
+    public function scopeAssigned(Builder $query, $userId): Builder
+    {
+        return $query->where('assignee_id', $userId);
+    }
 }
